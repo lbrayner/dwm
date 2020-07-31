@@ -102,7 +102,7 @@ struct Client {
 	int basew, baseh, incw, inch, maxw, maxh, minw, minh;
 	int bw, oldbw;
 	unsigned int tags;
-	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen, isterminal, noswallow;
+	int ismax, wasfloating, isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen, isterminal, noswallow;
 	pid_t pid;
 	Client *next;
 	Client *snext;
@@ -305,8 +305,16 @@ static Window root, wmcheckwin;
 
 static xcb_connection_t *xcon;
 
+/* maximize_vert_horz */
+static void maximize(int x, int y, int w, int h);
+static void togglemaximize(const Arg *arg);
+static void toggleverticalmax(const Arg *arg);
+static void togglehorizontalmax(const Arg *arg);
+
 /* configuration, allows nested code to access above variables */
 #include "config.h"
+
+#include "maximize.c"
 
 /* compile-time check if all tags fit into an unsigned int bit array. */
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
@@ -1194,6 +1202,8 @@ manage(Window w, XWindowAttributes *wa)
 	updatemotifhints(c);
 	XSelectInput(dpy, w, EnterWindowMask|FocusChangeMask|PropertyChangeMask|StructureNotifyMask);
 	grabbuttons(c, 0);
+	c->wasfloating = 0;
+	c->ismax = 0;
 	if (!c->isfloating)
 		c->isfloating = c->oldstate = trans != None || c->isfixed;
 	if (c->isfloating)

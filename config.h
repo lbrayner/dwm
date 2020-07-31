@@ -30,7 +30,7 @@ static const Rule rules[] = {
 	 */
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "Gimp",        NULL, NULL,           0,         1,          0,          0,         -1 },
-	{ "Firefox",     NULL, NULL,           1 << 8,    0,          0,          -1,        -1 },
+	{ "Firefox",     NULL, NULL,           1 << 8,    1,          0,          -1,        -1 },
 	{ "st-256color", NULL, NULL,           0,         0,          1,          0,         -1 },
 	{ NULL,          NULL, "Event Tester", 0,         0,          0,          1,         -1 }, /* xev */
 };
@@ -92,6 +92,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+    { MODKEY|ControlMask|ShiftMask, XK_h,      togglehorizontalmax, {0} },
+    { MODKEY|ControlMask|ShiftMask, XK_l,      togglehorizontalmax, {0} },
+    { MODKEY|ControlMask|ShiftMask, XK_j,      toggleverticalmax,   {0} },
+    { MODKEY|ControlMask|ShiftMask, XK_k,      toggleverticalmax,   {0} },
+    { MODKEY|ControlMask,           XK_m,      togglemaximize,      {0} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
