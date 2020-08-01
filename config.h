@@ -113,7 +113,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_F7,                     15)
 	TAGKEYS(                        XK_F8,                     16)
 	TAGKEYS(                        XK_F9,                     17)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {0} },
 };
 
 /* button definitions */
